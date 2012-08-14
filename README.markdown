@@ -20,31 +20,116 @@ status of commands which are executed due to filesystem changes. (v3.0.0)
 Prebuilt binaries, which are code-signed and ready to use, are available from
 the [downloads section](https://github.com/alloy/terminal-notifier/downloads).
 
+Or if you want to use this from
+[Ruby](https://github.com/alloy/terminal-notifier/tree/master/Ruby), you can
+install it through RubyGems:
+
+```
+$ [sudo] gem install terminal-notifier
+```
+
 
 ## Usage
 
 ```
-$ ./terminal-notifier.app/Contents/MacOS/terminal-notifier group-ID title message [bundle-ID]
+$ ./terminal-notifier.app/Contents/MacOS/terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
 ```
 
-In order to use terminal-notifier, you have to call the binary _inside_ the app
-bundle.
+In order to use terminal-notifier, you have to call the binary _inside_ the
+application bundle.
 
-The first argument specifies the ‘group’ a notification belongs to. For
-any ‘group’ only _one_ notification will ever be shown, replacing
-previously posted notifications. Examples are: the sender’s process ID to
-scope the notifications by a unique process, or the current working directory
-to scope notifications by a project.
+The Ruby gem, which wraps this tool, _does_ have a bin wrapper. If installed
+you can simply do:
 
-The second and third arguments describe the notification itself and are its
-‘title’ and ‘message’ respectively. For example, to communicate the sender of
-a notification to the user, you could specify the sender’s name as the title.
+```
+$ terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
+```
 
-The fourth and last argument is an optional one. It specifies which application
-should be activated when the user clicks the notification. By default this will
-activate Terminal.app, to launch another application instead specify the
-application’s bundle identifier. For example, to launch Safari.app use:
-`com.apple.Safari`.
+This will obviously be a bit slower than using the tool without the wrapper.
+
+
+#### Options
+
+At a minimum, you have to specify either the `-message` , the `-remove`
+option or the `-list` option.
+
+-------------------------------------------------------------------------------
+
+`-message VALUE`  **[required]**
+
+The message body of the notification.
+
+-------------------------------------------------------------------------------
+
+`-title VALUE`
+
+The title of the notification. This defaults to ‘Terminal’.
+
+-------------------------------------------------------------------------------
+
+`-subtitle VALUE`
+
+The subtitle of the notification.
+
+-------------------------------------------------------------------------------
+
+`-group ID`
+
+Specifies the ‘group’ a notification belongs to. For any ‘group’ only _one_
+notification will ever be shown, replacing previously posted notifications.
+
+A notification can be explicitely removed with the `-remove` option, describe
+below.
+
+Examples are:
+
+* The sender’s name to scope the notifications by tool.
+* The sender’s process ID to scope the notifications by a unique process.
+* The current working directory to scope notifications by project.
+
+-------------------------------------------------------------------------------
+
+`-remove ID`  **[required]**
+
+Removes a notification that was previously sent with the specified ‘group’ ID,
+if one exists. If used with the special group "ALL", all message are removed.
+
+-------------------------------------------------------------------------------
+
+`-list ID` **[required]**
+
+Lists details about the specified ‘group’ ID. If used with the special group
+"ALL", details about all currently active  messages are displayed.
+
+The output of this command is tab-separated, which makes it easy to parse.
+
+-------------------------------------------------------------------------------
+
+`-activate ID`
+
+Specifies which application should be activated when the user clicks the
+notification.
+
+You can find the bundle identifier of an application in its `Info.plist` file
+_inside_ the application bundle.
+
+Examples are:
+
+* `com.apple.Terminal` to activate Terminal.app
+* `com.apple.Safari` to activate Safari.app
+
+-------------------------------------------------------------------------------
+
+`-open URL`
+
+Specifies a resource to be opened when the user clicks the notification. This
+can be a web or file URL, or any custom URL scheme.
+
+-------------------------------------------------------------------------------
+
+`-execute COMMAND`
+
+Specifies a shell command to run when the user clicks the notification.
 
 
 ## License
