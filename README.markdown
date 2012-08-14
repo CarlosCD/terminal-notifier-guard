@@ -19,7 +19,7 @@ status of commands which are executed due to filesystem changes.
 ## Download
 
 Prebuilt binaries, which are code-signed and ready to use, are available from
-the [downloads section](https://github.com/alloy/terminal-notifier/downloads).
+the [downloads section](https://github.com/Springest/terminal-notifier-guard/downloads).
 
 Or if you want to use this from
 [Ruby](https://github.com/Springest/terminal-notifier-guard/tree/master/Ruby), you can
