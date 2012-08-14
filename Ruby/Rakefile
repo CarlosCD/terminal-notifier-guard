@@ -1,43 +1,55 @@
 def version
   @version ||= begin
-    plist = File.expand_path('../../Terminal Notifier/Terminal Notifier-Info.plist', __FILE__)
+    plist = File.expand_path('../../Terminal Notifiers/notify/Terminal Notifier/Terminal Notifier-Info.plist', __FILE__)
     `/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' '#{plist}'`.strip
   end
 end
 
-def filename
-  "terminal-notifier_#{version}"
+def types
+  %w(notify success pending failed)
 end
 
-def zipfile
-  "#{filename}.zip"
+def type_file_name(type)
+  "tn_#{type}-#{version}"
+end
+
+def filenames
+  types.map{|type| type_file_name(type)}
+end
+
+def zipfiles
+  filenames.map{|n| "#{n}.zip"}
 end
 
 task :clean do
-  rm zipfile
+  rm zipfiles
   rm_rf "vendor"
 end
 
 task :update_build do
-  unless File.exist?(zipfile)
-    sh "curl -O 'http://cloud.github.com/downloads/alloy/terminal-notifier/terminal-notifier_#{version}.zip'"
-  end
-
   rm_rf "vendor"
   mkdir "vendor"
 
-  sh "unzip -o -d vendor #{zipfile}"
-  mv "vendor/#{filename}", "vendor/terminal-notifier"
+  zipfiles.each do |zipfile|
+    unless File.exist?(zipfile)
+      sh "curl -O 'http://cloud.github.com/downloads/Springest/terminal-notifier-guard/#{zipfile}'"
+    end
+
+    sh "unzip -o -d vendor #{zipfile}"
+  end
+  types.each do |type|
+    mv "vendor/#{type_file_name(type)}.app", "vendor/terminal-notifier-#{type}.app"
+  end
 end
 
 desc "Build gem"
 task :gem => :update_build do
-  sh "gem build terminal-notifier.gemspec"
+  sh "gem build terminal-notifier-guard.gemspec"
 end
 
 desc "Run specs"
 task :spec do
-  sh "bundle exec ruby spec/terminal-notifier_spec.rb"
+  sh "bundle exec ruby spec/terminal-notifier-guard_spec.rb"
 end
 
 task :default => :spec
