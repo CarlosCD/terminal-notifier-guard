@@ -1,4 +1,4 @@
-# TerminalNotifier
+# TerminalNotifier - Guard Style
 
 A simple Ruby wrapper around the [`terminal-notifier`][HOMEPAGE] command-line
 tool, which allows you to send User Notifications to the Notification Center on
@@ -29,17 +29,21 @@ For full information on all the options, see the tool’s [README][README].
 Examples are:
 
 ```ruby
-TerminalNotifier.notify('Hello World')
-TerminalNotifier.notify('Hello World', :title => 'Ruby', :subtitle => 'Programming Language')
-TerminalNotifier.notify('Hello World', :activate => 'com.apple.Safari')
-TerminalNotifier.notify('Hello World', :open => 'http://twitter.com/alloy')
-TerminalNotifier.notify('Hello World', :execute => 'say "OMG"')
-TerminalNotifier.notify('Hello World', :group => Process.pid)
+TerminalNotifier::Guard.notify('Hello World')
+TerminalNotifier::Guard.notify('Hello World', :title => 'Ruby', :subtitle => 'Programming Language')
+TerminalNotifier::Guard.notify('Hello World', :activate => 'com.apple.Safari')
+TerminalNotifier::Guard.notify('Hello World', :open => 'http://twitter.com/alloy')
+TerminalNotifier::Guard.notify('Hello World', :execute => 'say "OMG"')
+TerminalNotifier::Guard.notify('Hello World', :group => Process.pid)
 
-TerminalNotifier.remove(Process.pid)
+TerminalNotifier::Guard.remove(Process.pid)
 
-TerminalNotifier.list(Process.pid)
-TerminalNotifier.list
+TerminalNotifier::Guard.list(Process.pid)
+TerminalNotifier::Guard.list
+
+TerminalNotifier::Guard.failed('This did not go well.')
+TerminalNotifier::Guard.success('This did not go bad.')
+TerminalNotifier::Guard.pending('This needs some work still')
 ```
 
 

@@ -1,4 +1,4 @@
-# terminal-notifier
+# TerminalNotifier for [Guard][GUARD]
 
 terminal-notifier is a command-line tool to send Mac OS X User Notifications,
 which are available in Mac OS X 10.8.
@@ -7,12 +7,13 @@ It is currently packaged as an application bundle, because `NSUserNotification`
 does not work from a ‘Foundation tool’. [radar://11956694](radar://11956694)
 
 The Notification Center _always_ uses the application’s own icon, there’s
-currently no way to specify a custom icon for a notification. The only way to
-use this tool with your own icon is to include a build of terminal-notifier
-with your icon instead.
+currently no way to specify a custom icon for a notification. However, we have
+supplied you with 4 different apps, each with their own icon, to represent
+statuses like: failed, success, pending, and the default notify / info style
+notification.
 
-This tool will be used by [Kicker](https://github.com/alloy/kicker) to show the
-status of commands which are executed due to filesystem changes. (v3.0.0)
+This tool will be used by [Guard][GUARD] to show the
+status of commands which are executed due to filesystem changes.
 
 
 ## Download
@@ -21,18 +22,19 @@ Prebuilt binaries, which are code-signed and ready to use, are available from
 the [downloads section](https://github.com/alloy/terminal-notifier/downloads).
 
 Or if you want to use this from
-[Ruby](https://github.com/alloy/terminal-notifier/tree/master/Ruby), you can
+[Ruby](https://github.com/Springest/terminal-notifier-guard/tree/master/Ruby), you can
 install it through RubyGems:
 
 ```
-$ [sudo] gem install terminal-notifier
+$ [sudo] gem install terminal-notifier-guard
 ```
 
 
 ## Usage
 
 ```
-$ ./terminal-notifier.app/Contents/MacOS/terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
+$ ./terminal-notifier-notify.app/Contents/MacOS/terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
+$ ./terminal-notifier-failed.app/Contents/MacOS/terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
 ```
 
 In order to use terminal-notifier, you have to call the binary _inside_ the
@@ -42,7 +44,8 @@ The Ruby gem, which wraps this tool, _does_ have a bin wrapper. If installed
 you can simply do:
 
 ```
-$ terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
+$ terminal-notifier-notify -[message|group|list] [VALUE|ID|ID] [options]
+$ terminal-notifier-succes -[message|group|list] [VALUE|ID|ID] [options]
 ```
 
 This will obviously be a bit slower than using the tool without the wrapper.
@@ -134,11 +137,10 @@ Specifies a shell command to run when the user clicks the notification.
 
 ## License
 
-All the works are available under the MIT license. **Except** for
-‘Terminal.icns’, which is a copy of Apple’s Terminal.app icon and as such is
-copyright of Apple.
+All the works are available under the MIT license.
 
 Copyright (C) 2012 Eloy Durán <eloy.de.enige@gmail.com>
+& Wouter de Vos <wouter.de.vos@springest.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -157,3 +159,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+[GUARD]: https://github.com/guard/guard
