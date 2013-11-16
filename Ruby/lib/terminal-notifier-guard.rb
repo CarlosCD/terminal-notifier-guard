@@ -18,6 +18,8 @@ module TerminalNotifier
     end
 
     def self.execute(verbose, options)
+      options[:sender] = options[:sender] || 'com.apple.Terminal'
+
       if available?
         case options[:type]
         when :failed
