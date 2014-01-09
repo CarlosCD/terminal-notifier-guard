@@ -7,8 +7,8 @@ Gem::Specification.new do |gem|
   gem.version          = version
   gem.summary          = 'Send User Notifications on Mac OS X 10.8 - with status icons.'
   gem.authors          = ["Eloy Duran", "Wouter de Vos"]
-  gem.email            = ["wouter.de.vos@springest.com"]
-  gem.homepage         = 'https://github.com/foxycoder/terminal-notifier'
+  gem.email            = ["wouter@springest.com"]
+  gem.homepage         = 'https://github.com/Springest/terminal-notifier-guard'
 
   gem.executables      = ['terminal-notifier-notify', 'terminal-notifier-success', 'terminal-notifier-failed', 'terminal-notifier-pending']
   gem.files            = ['lib/terminal-notifier-guard.rb'] + Dir.glob('lib/terminal_notifier/**/*') + Dir.glob('bin/terminal-notifier-*') + Dir.glob('vendor/terminal-notifier/**/*')
