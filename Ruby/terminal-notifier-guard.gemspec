@@ -1,10 +1,9 @@
 # -*- encoding: utf-8 -*-
-plist = File.expand_path('../../Terminal Notifiers/notify/Terminal Notifier/Terminal Notifier-Info.plist', __FILE__)
-version = `/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' '#{plist}'`.strip
+VERSION = "1.6.0"
 
 Gem::Specification.new do |gem|
   gem.name             = "terminal-notifier-guard"
-  gem.version          = version
+  gem.version          = VERSION
   gem.summary          = 'Send User Notifications on Mac OS X 10.8 - with status icons.'
   gem.authors          = ["Eloy Duran", "Wouter de Vos"]
   gem.email            = ["wouter@springest.com"]
