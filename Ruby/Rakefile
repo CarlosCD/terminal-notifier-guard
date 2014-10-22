@@ -32,7 +32,7 @@ task :update_build do
 
   zipfiles.each do |zipfile|
     unless File.exist?(zipfile)
-      sh "curl -O 'http://cloud.github.com/downloads/Springest/terminal-notifier-guard/#{zipfile}'"
+      sh "curl -L 'https://github.com/alloy/terminal-notifier/releases/download/#{version}/terminal-notifier-#{version}.zip' -o #{zipfile}"
     end
 
     sh "unzip -o -d vendor #{zipfile}"
