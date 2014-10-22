@@ -161,3 +161,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 [GUARD]: https://github.com/guard/guard
+
+## Contributors
+
+- @alloy (For the `terminal-notifier`)
+- @railsme (For a clean way to test for OSX version #15)
+- @jamilbx (For support for local `terminal-notifier` command #8)

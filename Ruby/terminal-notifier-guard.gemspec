@@ -20,4 +20,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'bacon'
   gem.add_development_dependency 'mocha'
   gem.add_development_dependency 'mocha-on-bacon'
+  gem.add_development_dependency 'terminal-notifier'
 end

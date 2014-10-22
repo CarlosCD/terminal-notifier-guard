@@ -17,8 +17,12 @@ def filenames
   types.map{|type| type_file_name(type)}
 end
 
+def zip_file_name(type)
+  "#{type_file_name(type)}.zip"
+end
+
 def zipfiles
-  filenames.map{|n| "#{n}.zip"}
+  types.map{|n| zip_file_name(n)}
 end
 
 task :clean do
@@ -26,20 +30,9 @@ task :clean do
   rm_rf "vendor"
 end
 
+desc "Update the vendored terminal notifiers."
 task :update_build do
-  rm_rf "vendor"
-  mkdir "vendor"
-
-  zipfiles.each do |zipfile|
-    unless File.exist?(zipfile)
-      sh "curl -L 'https://github.com/alloy/terminal-notifier/releases/download/#{version}/terminal-notifier-#{version}.zip' -o #{zipfile}"
-    end
-
-    sh "unzip -o -d vendor #{zipfile}"
-  end
-  types.each do |type|
-    mv "vendor/#{type_file_name(type)}.app", "vendor/terminal-notifier-#{type}.app"
-  end
+  puts "This needs fixing."
 end
 
 desc "Build gem"
