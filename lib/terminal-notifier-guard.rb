@@ -3,6 +3,7 @@ module TerminalNotifier
     VERSION = "1.6.1"
     BIN_PATH = "/usr/local/Cellar/terminal-notifier/1.6.1/terminal-notifier.app/Contents/MacOS/terminal-notifier"
     ICONS_PATH = File.expand_path("../../icons", __FILE__)
+    GUARD_ICON = File.join(ICONS_PATH, 'guard.png')
 
     # Returns wether or not the current platform is Mac OS X 10.8, or higher.
     def self.available?
@@ -20,7 +21,7 @@ module TerminalNotifier
 
     def self.execute(verbose, options)
       if available? && installed?
-        options.merge!({ :appIcon => icon(options.delete(:type)) })
+        options.merge!({ :appIcon => GUARD_ICON, :contentImage => icon(options.delete(:type)) })
 
         command = [BIN_PATH, *options.map { |k,v| ["-#{k}", v.to_s] }.flatten]
         if RUBY_VERSION < '1.9'
