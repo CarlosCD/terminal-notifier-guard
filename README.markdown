@@ -1,6 +1,6 @@
 # TerminalNotifier - Guard Style
 
-A simple Ruby wrapper around the [`terminal-notifier`][HOMEPAGE] command-line
+A simple Ruby wrapper around the [`terminal-notifier`](https://github.com/alloy/terminal-notifier) command-line
 tool, which allows you to send User Notifications to the Notification Center on
 Mac OS X 10.8, or higher.
 
@@ -58,7 +58,7 @@ See [LICENSE][LICENSE] for details.
 
 [HOMEPAGE]: https://github.com/Springest/terminal-notifier-guard
 [GUARD]: https://github.com/guard/guard
-[LICENSE]: https://github.com/Springest/terminal-notifier-guard/blob/master/Ruby/LICENSE
+[LICENSE]: https://github.com/Springest/terminal-notifier-guard/blob/master/LICENSE
 
 
 ## Contributors & Thanks to
