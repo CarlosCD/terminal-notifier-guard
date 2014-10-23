@@ -11,7 +11,7 @@ require 'terminal-notifier-guard'
 describe "TerminalNotifier::Guard" do
   describe ".execute" do
     it "executes the tool with the given options" do
-      command = [TerminalNotifier::Guard::Notify::BIN_PATH, '-message', 'ZOMG']
+      command = [TerminalNotifier::Guard::BIN_PATH, '-message', 'ZOMG', '-appIcon', TerminalNotifier::Guard.icon]
       if RUBY_VERSION < '1.9'
         require 'shellwords'
         command = Shellwords.shelljoin(command)
@@ -20,8 +20,8 @@ describe "TerminalNotifier::Guard" do
       TerminalNotifier::Guard.execute(false, :message => 'ZOMG')
     end
 
-    it "executes the right tool according to the type option" do
-      command = [TerminalNotifier::Guard::Success::BIN_PATH, '-message', 'ZOMG']
+    it "executes with the right icon path according to the type option" do
+      command = [TerminalNotifier::Guard::BIN_PATH, '-message', 'ZOMG', '-appIcon', TerminalNotifier::Guard.icon(:success)]
       if RUBY_VERSION < '1.9'
         require 'shellwords'
         command = Shellwords.shelljoin(command)
@@ -31,7 +31,7 @@ describe "TerminalNotifier::Guard" do
     end
 
     it "returns the result output of the command" do
-      TerminalNotifier::Guard.execute(false, 'help' => '').should == `'#{TerminalNotifier::Guard::Notify::BIN_PATH}' -help`
+      TerminalNotifier::Guard.execute(false, 'help' => '').should == `'#{TerminalNotifier::Guard::BIN_PATH}' -help`
     end
 
     it "sends a notification" do
@@ -86,8 +86,8 @@ describe "TerminalNotifier::Guard" do
   end
 
   describe ".failed" do
-    it "executes the 'failed' tool binary" do
-      command = [TerminalNotifier::Guard::Failed::BIN_PATH, '-message', 'ZOMG']
+    it "executes with the 'failed' icon flag" do
+      command = [TerminalNotifier::Guard::BIN_PATH, '-message', 'ZOMG', '-appIcon', TerminalNotifier::Guard.icon(:failed)]
       if RUBY_VERSION < '1.9'
         require 'shellwords'
         command = Shellwords.shelljoin(command)
@@ -98,8 +98,8 @@ describe "TerminalNotifier::Guard" do
   end
 
   describe ".success" do
-    it "executes the 'success' tool binary" do
-      command = [TerminalNotifier::Guard::Success::BIN_PATH, '-message', 'ZOMG']
+    it "executes with the 'success' icon flag" do
+      command = [TerminalNotifier::Guard::BIN_PATH, '-message', 'ZOMG', '-appIcon', TerminalNotifier::Guard.icon(:success)]
       if RUBY_VERSION < '1.9'
         require 'shellwords'
         command = Shellwords.shelljoin(command)
@@ -110,8 +110,8 @@ describe "TerminalNotifier::Guard" do
   end
 
   describe ".pending" do
-    it "executes the 'pending' tool binary" do
-      command = [TerminalNotifier::Guard::Pending::BIN_PATH, '-message', 'ZOMG']
+    it "executes with the 'pending' icon flag" do
+      command = [TerminalNotifier::Guard::BIN_PATH, '-message', 'ZOMG', '-appIcon', TerminalNotifier::Guard.icon(:pending)]
       if RUBY_VERSION < '1.9'
         require 'shellwords'
         command = Shellwords.shelljoin(command)

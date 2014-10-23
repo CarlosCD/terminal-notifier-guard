@@ -1,13 +1,8 @@
-%w(failed notify pending success).each do |type|
-  require File.expand_path("../terminal_notifier/guard/#{type}", __FILE__)
-end
-
 module TerminalNotifier
   module Guard
-    include TerminalNotifier::Guard::Notify
-    include TerminalNotifier::Guard::Success
-    include TerminalNotifier::Guard::Failed
-    include TerminalNotifier::Guard::Pending
+    VERSION = "1.6.1"
+    BIN_PATH = "/usr/local/Cellar/terminal-notifier/1.6.1/terminal-notifier.app/Contents/MacOS/terminal-notifier"
+    ICONS_PATH = File.expand_path("../../icons", __FILE__)
 
     # Returns wether or not the current platform is Mac OS X 10.8, or higher.
     def self.available?
@@ -18,21 +13,16 @@ module TerminalNotifier
       @available
     end
 
-    def self.execute(verbose, options)
-      if available?
-        case options[:type]
-        when :failed
-          bin_path = TerminalNotifier::Guard::Failed::BIN_PATH
-        when :success
-          bin_path = TerminalNotifier::Guard::Success::BIN_PATH
-        when :pending
-          bin_path = TerminalNotifier::Guard::Pending::BIN_PATH
-        else
-          bin_path = TerminalNotifier::Guard::Notify::BIN_PATH
-        end
-        options.delete(:type) if options[:type]
+    # Whether or not the terminal notifier is installed
+    def self.installed?
+      return true if File.exist? BIN_PATH
+    end
 
-        command = [bin_path, *options.map { |k,v| ["-#{k}", v.to_s] }.flatten]
+    def self.execute(verbose, options)
+      if available? && installed?
+        options.merge!({ :appIcon => icon(options.delete(:type)) })
+
+        command = [BIN_PATH, *options.map { |k,v| ["-#{k}", v.to_s] }.flatten]
         if RUBY_VERSION < '1.9'
           require 'shellwords'
           command = Shellwords.shelljoin(command)
@@ -45,7 +35,8 @@ module TerminalNotifier
         end
         result
       else
-        raise "terminal-notifier is only supported on Mac OS X 10.8, or higher."
+        raise "terminal-notifier is only supported on Mac OS X 10.8, or higher." if !available?
+        raise "TerminalNotifier not installed. Please do so by running `brew install terminal-notifier`" if !installed?
       end
     end
 
@@ -58,12 +49,12 @@ module TerminalNotifier
     #
     # Examples are:
     #
-    #   TerminalNotifier.notify('Hello World')
-    #   TerminalNotifier.notify('Hello World', :title => 'Ruby')
-    #   TerminalNotifier.notify('Hello World', :group => Process.pid)
-    #   TerminalNotifier.notify('Hello World', :activate => 'com.apple.Safari')
-    #   TerminalNotifier.notify('Hello World', :open => 'http://twitter.com/alloy')
-    #   TerminalNotifier.notify('Hello World', :execute => 'say "OMG"')
+    #   TerminalNotifier::Guard.notify('Hello World')
+    #   TerminalNotifier::Guard.notify('Hello World', :title => 'Ruby')
+    #   TerminalNotifier::Guard.notify('Hello World', :group => Process.pid)
+    #   TerminalNotifier::Guard.notify('Hello World', :activate => 'com.apple.Safari')
+    #   TerminalNotifier::Guard.notify('Hello World', :open => 'http://twitter.com/alloy')
+    #   TerminalNotifier::Guard.notify('Hello World', :execute => 'say "OMG"')
     #
     # Raises if not supported on the current platform.
     def notify(message, options = {}, verbose = false)
@@ -89,6 +80,13 @@ module TerminalNotifier
       $?.success?
     end
     module_function :success
+
+    def icon(type = :notify)
+      type ||= :notify
+      file_name = "#{type}.icns".capitalize
+      File.join(ICONS_PATH, file_name)
+    end
+    module_function :icon
 
     # Removes a notification that was previously sent with the specified
     # ‘group’ ID, if one exists.

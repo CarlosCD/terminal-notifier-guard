@@ -6,3 +6,5 @@ Ruby/*.zip
 Ruby/*.gem
 Ruby/vendor
 .rvmrc
+.bundle/
+*.gem

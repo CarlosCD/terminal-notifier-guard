@@ -1,169 +1,59 @@
-# TerminalNotifier for [Guard][GUARD]
+# TerminalNotifier - Guard Style
 
-terminal-notifier is a command-line tool to send Mac OS X User Notifications,
-which are available in Mac OS X 10.8.
+A simple Ruby wrapper around the [`terminal-notifier`][HOMEPAGE] command-line
+tool, which allows you to send User Notifications to the Notification Center on
+Mac OS X 10.8, or higher.
 
-It is currently packaged as an application bundle, because `NSUserNotification`
-does not work from a ‘Foundation tool’. [radar://11956694](radar://11956694)
+This version has 4 different `terminal-notifiers` included for each status that
+[Guard][GUARD] supports:
 
-The Notification Center _always_ uses the application’s own icon, there’s
-currently no way to specify a custom icon for a notification. However, we have
-supplied you with 4 different apps, each with their own icon, to represent
-statuses like: failed, success, pending, and the default notify / info style
-notification.
+ 1. Failed
+ 2. Notify
+ 3. Pending
+ 4. Success
 
-This tool will be used by [Guard][GUARD] to show the
-status of commands which are executed due to filesystem changes.
+And each one with their own icon representing it's status.
 
 
-## Download
-
-Prebuilt binaries, which are code-signed and ready to use, are available from
-the [downloads section](https://github.com/Springest/terminal-notifier-guard/downloads).
-
-Or if you want to use this from
-[Ruby](https://github.com/Springest/terminal-notifier-guard/tree/master/Ruby), you can
-install it through RubyGems:
+## Installation
 
 ```
-$ [sudo] gem install terminal-notifier-guard
+$ gem install terminal-notifier-guard
 ```
 
 
 ## Usage
 
-```
-$ ./terminal-notifier-notify.app/Contents/MacOS/terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
-$ ./terminal-notifier-failed.app/Contents/MacOS/terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
-```
-
-In order to use terminal-notifier, you have to call the binary _inside_ the
-application bundle.
-
-The Ruby gem, which wraps this tool, _does_ have a bin wrapper. If installed
-you can simply do:
-
-```
-$ terminal-notifier-notify -[message|group|list] [VALUE|ID|ID] [options]
-$ terminal-notifier-succes -[message|group|list] [VALUE|ID|ID] [options]
-```
-
-This will obviously be a bit slower than using the tool without the wrapper.
-
-
-#### Options
-
-At a minimum, you have to specify either the `-message` , the `-remove`
-option or the `-list` option.
-
--------------------------------------------------------------------------------
-
-`-message VALUE`  **[required]**
-
-The message body of the notification.
-
--------------------------------------------------------------------------------
-
-`-title VALUE`
-
-The title of the notification. This defaults to ‘Terminal’.
-
--------------------------------------------------------------------------------
-
-`-subtitle VALUE`
-
-The subtitle of the notification.
-
--------------------------------------------------------------------------------
-
-`-group ID`
-
-Specifies the ‘group’ a notification belongs to. For any ‘group’ only _one_
-notification will ever be shown, replacing previously posted notifications.
-
-A notification can be explicitely removed with the `-remove` option, describe
-below.
+For full information on all the options, see the tool’s [README][README].
 
 Examples are:
 
-* The sender’s name to scope the notifications by tool.
-* The sender’s process ID to scope the notifications by a unique process.
-* The current working directory to scope notifications by project.
+```ruby
+TerminalNotifier::Guard.notify('Hello World')
+TerminalNotifier::Guard.notify('Hello World', :title => 'Ruby', :subtitle => 'Programming Language')
+TerminalNotifier::Guard.notify('Hello World', :activate => 'com.apple.Safari')
+TerminalNotifier::Guard.notify('Hello World', :open => 'http://twitter.com/alloy')
+TerminalNotifier::Guard.notify('Hello World', :execute => 'say "OMG"')
+TerminalNotifier::Guard.notify('Hello World', :group => Process.pid)
 
--------------------------------------------------------------------------------
+TerminalNotifier::Guard.remove(Process.pid)
 
-`-remove ID`  **[required]**
+TerminalNotifier::Guard.list(Process.pid)
+TerminalNotifier::Guard.list
 
-Removes a notification that was previously sent with the specified ‘group’ ID,
-if one exists. If used with the special group "ALL", all message are removed.
-
--------------------------------------------------------------------------------
-
-`-list ID` **[required]**
-
-Lists details about the specified ‘group’ ID. If used with the special group
-"ALL", details about all currently active  messages are displayed.
-
-The output of this command is tab-separated, which makes it easy to parse.
-
--------------------------------------------------------------------------------
-
-`-activate ID`
-
-Specifies which application should be activated when the user clicks the
-notification.
-
-You can find the bundle identifier of an application in its `Info.plist` file
-_inside_ the application bundle.
-
-Examples are:
-
-* `com.apple.Terminal` to activate Terminal.app
-* `com.apple.Safari` to activate Safari.app
-
--------------------------------------------------------------------------------
-
-`-open URL`
-
-Specifies a resource to be opened when the user clicks the notification. This
-can be a web or file URL, or any custom URL scheme.
-
--------------------------------------------------------------------------------
-
-`-execute COMMAND`
-
-Specifies a shell command to run when the user clicks the notification.
+TerminalNotifier::Guard.failed('This did not go well.')
+TerminalNotifier::Guard.success('This did not go bad.')
+TerminalNotifier::Guard.pending('This needs some work still')
+```
 
 
 ## License
 
 All the works are available under the MIT license.
 
-Copyright (C) 2012 Eloy Durán <eloy.de.enige@gmail.com>
-& Wouter de Vos <wouter.de.vos@springest.com>
+See [LICENSE][LICENSE] for details.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
+[HOMEPAGE]: https://github.com/Springest/terminal-notifier-guard
 [GUARD]: https://github.com/guard/guard
-
-## Contributors
-
-- @alloy (For the `terminal-notifier`)
-- @railsme (For a clean way to test for OSX version #15)
-- @jamilbx (For support for local `terminal-notifier` command #8)
+[README]: https://github.com/Springest/terminal-notifier-guard/blob/master/README.markdown
+[LICENSE]: https://github.com/Springest/terminal-notifier-guard/blob/master/Ruby/LICENSE

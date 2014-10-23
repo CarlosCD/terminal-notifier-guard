@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    terminal-notifier-guard (1.6.0)
+    terminal-notifier-guard (1.6.1)
 
 GEM
   remote: https://rubygems.org/
@@ -13,7 +13,6 @@ GEM
     mocha-on-bacon (0.2.2)
       mocha (>= 0.13.0)
     rake (10.3.2)
-    terminal-notifier (1.6.0)
 
 PLATFORMS
   ruby
@@ -23,5 +22,4 @@ DEPENDENCIES
   mocha
   mocha-on-bacon
   rake
-  terminal-notifier
   terminal-notifier-guard!
