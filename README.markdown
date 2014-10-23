@@ -15,8 +15,24 @@ This version has 4 different icons included for each status that
 
 ## Installation
 
+This version depends on the official [`terminal-notifier`](https://github.com/alloy/terminal-notifier).
+Install it with [Homebrew](http://brew.sh/) or see the official
+[Installation instructions](https://github.com/alloy/terminal-notifier#download).
+
+```
+$ brew install terminal-notifier
+```
+
+Then, install the gem
+
 ```
 $ gem install terminal-notifier-guard
+```
+
+Or add it to your Gemfile:
+
+```
+$ gem 'terminal-notifier-guard', '~> 1.6.1'
 ```
 
 ### OSX 10.8 users
