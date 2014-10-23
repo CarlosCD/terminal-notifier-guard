@@ -4,15 +4,13 @@ A simple Ruby wrapper around the [`terminal-notifier`][HOMEPAGE] command-line
 tool, which allows you to send User Notifications to the Notification Center on
 Mac OS X 10.8, or higher.
 
-This version has 4 different `terminal-notifiers` included for each status that
+This version has 4 different icons included for each status that
 [Guard][GUARD] supports:
 
  1. Failed
  2. Notify
  3. Pending
  4. Success
-
-And each one with their own icon representing it's status.
 
 
 ## Installation
@@ -21,10 +19,15 @@ And each one with their own icon representing it's status.
 $ gem install terminal-notifier-guard
 ```
 
+### OSX 10.8 users
+
+As of version `1.6.1`, we no longer bundle notifiers binaries in this gem. Please revert to
+version `1.5.3` for OSX 10.8 support.
+
 
 ## Usage
 
-For full information on all the options, see the tool’s [README][README].
+You could also use the notifier directly.
 
 Examples are:
 
@@ -55,5 +58,11 @@ See [LICENSE][LICENSE] for details.
 
 [HOMEPAGE]: https://github.com/Springest/terminal-notifier-guard
 [GUARD]: https://github.com/guard/guard
-[README]: https://github.com/Springest/terminal-notifier-guard/blob/master/README.markdown
 [LICENSE]: https://github.com/Springest/terminal-notifier-guard/blob/master/Ruby/LICENSE
+
+
+## Contributors & Thanks to
+
+- @alloy (For the terminal-notifier)
+- @railsme (For a clean way to test for OSX version #15)
+- @jamilbx (For support for local terminal-notifier command #8)
