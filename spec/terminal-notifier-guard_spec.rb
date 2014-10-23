@@ -120,4 +120,10 @@ describe "TerminalNotifier::Guard" do
       TerminalNotifier::Guard.pending('ZOMG')
     end
   end
+
+  describe ".list" do
+    it "should not fail without an argument" do
+      TerminalNotifier::Guard.list.class.should == Array
+    end
+  end
 end
