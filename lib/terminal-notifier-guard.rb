@@ -5,11 +5,22 @@ module TerminalNotifier
     ICONS_PATH = File.expand_path("../../icons", __FILE__)
     GUARD_ICON = File.join(ICONS_PATH, 'guard.png')
 
+    def self.osx_version
+      Gem::Version.new(`sw_vers -productVersion`.strip)
+    end
+
+    def self.deprecation_check
+      if osx_version <= Gem::Version.new('10.8')
+        raise "OSX 10.8 is no longer supported by this gem. Please revert to version <= 1.5.3."
+      end
+    end
+
     # Returns wether or not the current platform is Mac OS X 10.8, or higher.
     def self.available?
+      deprecation_check
       if @available.nil?
         @available = `uname`.strip == 'Darwin' &&
-          Gem::Version.new(`sw_vers -productVersion`.strip) >= Gem::Version.new('10.8')
+          osx_version >= Gem::Version.new('10.9')
       end
       @available
     end
