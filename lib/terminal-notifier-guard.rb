@@ -2,7 +2,7 @@ module TerminalNotifier
   module Guard
     VERSION = "1.6.2"
     ICONS_PATH = File.expand_path("../../icons", __FILE__)
-    GUARD_ICON = File.join(ICONS_PATH, 'guard.png')
+    GUARD_ICON = File.join(ICONS_PATH, 'Guard.icns')
 
     def self.osx_version
       Gem::Version.new(`sw_vers -productVersion`.strip)
@@ -46,7 +46,7 @@ module TerminalNotifier
 
     def self.execute(verbose, options)
       if available? && installed?
-        options.merge!({ :appIcon => GUARD_ICON, :contentImage => icon(options.delete(:type)) })
+        options.merge!({ :contentImage=> GUARD_ICON, :appIcon => icon(options.delete(:type)) })
 
         command = [bin_path, *options.map { |k,v| ["-#{k}", v.to_s] }.flatten]
         if RUBY_VERSION < '1.9'
