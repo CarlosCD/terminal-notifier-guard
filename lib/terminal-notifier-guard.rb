@@ -1,7 +1,6 @@
 module TerminalNotifier
   module Guard
     VERSION = "1.6.2"
-    BIN_PATH = "/usr/local/Cellar/terminal-notifier/1.6.1/terminal-notifier.app/Contents/MacOS/terminal-notifier"
     ICONS_PATH = File.expand_path("../../icons", __FILE__)
     GUARD_ICON = File.join(ICONS_PATH, 'guard.png')
 
@@ -9,9 +8,20 @@ module TerminalNotifier
       Gem::Version.new(`sw_vers -productVersion`.strip)
     end
 
+    def self.terminal_notifier_version
+      return unless installed?
+      Gem::Version.new(`#{bin_path}`.lines.first.match(/\d\.\d\.\d/)[0])
+    rescue
+      Gem::Version.new("0.0.0")
+    end
+
     def self.deprecation_check
       if osx_version <= Gem::Version.new('10.8')
         raise "OSX 10.8 is no longer supported by this gem. Please revert to version <= 1.5.3."
+      end
+
+      if terminal_notifier_version < Gem::Version.new('1.6.0')
+        puts "Notice: Your terminal-notifier is older than what terminal-notifier-guard supports, consider upgrading."
       end
     end
 
@@ -27,14 +37,18 @@ module TerminalNotifier
 
     # Whether or not the terminal notifier is installed
     def self.installed?
-      return true if File.exist? BIN_PATH
+      File.exist? bin_path
+    end
+
+    def self.bin_path
+      @@binary ||= `which terminal-notifier`.chomp
     end
 
     def self.execute(verbose, options)
       if available? && installed?
         options.merge!({ :appIcon => GUARD_ICON, :contentImage => icon(options.delete(:type)) })
 
-        command = [BIN_PATH, *options.map { |k,v| ["-#{k}", v.to_s] }.flatten]
+        command = [bin_path, *options.map { |k,v| ["-#{k}", v.to_s] }.flatten]
         if RUBY_VERSION < '1.9'
           require 'shellwords'
           command = Shellwords.shelljoin(command)
