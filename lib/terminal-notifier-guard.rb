@@ -1,6 +1,6 @@
 module TerminalNotifier
   module Guard
-    VERSION = "1.6.2"
+    VERSION = "1.6.3"
     ICONS_PATH = File.expand_path("../../icons", __FILE__)
     GUARD_ICON = File.join(ICONS_PATH, 'Guard.icns')
 
