@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    terminal-notifier-guard (1.6.1)
+    terminal-notifier-guard (1.6.2)
 
 GEM
   remote: https://rubygems.org/

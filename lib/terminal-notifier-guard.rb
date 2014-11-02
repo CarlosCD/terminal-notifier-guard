@@ -1,6 +1,6 @@
 module TerminalNotifier
   module Guard
-    VERSION = "1.6.1"
+    VERSION = "1.6.2"
     BIN_PATH = "/usr/local/Cellar/terminal-notifier/1.6.1/terminal-notifier.app/Contents/MacOS/terminal-notifier"
     ICONS_PATH = File.expand_path("../../icons", __FILE__)
     GUARD_ICON = File.join(ICONS_PATH, 'guard.png')
