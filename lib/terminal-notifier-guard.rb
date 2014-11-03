@@ -9,7 +9,7 @@ module TerminalNotifier
     end
 
     def self.terminal_notifier_version
-      return unless installed?
+      return Gem::Version("0.0.0") unless installed?
       Gem::Version.new(`#{bin_path}`.lines.first.match(/\d\.\d\.\d/)[0])
     rescue
       Gem::Version.new("0.0.0")
