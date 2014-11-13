@@ -31,8 +31,8 @@ $ gem install terminal-notifier-guard
 
 Or add it to your Gemfile:
 
-```
-$ gem 'terminal-notifier-guard', '~> 1.6.1'
+```ruby
+gem 'terminal-notifier-guard', '~> 1.6.1'
 ```
 
 ### OSX 10.8 users
