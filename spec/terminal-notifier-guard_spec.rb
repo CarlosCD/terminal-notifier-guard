@@ -126,4 +126,19 @@ describe "TerminalNotifier::Guard" do
       TerminalNotifier::Guard.list.class.should == Array
     end
   end
+
+  describe ".bin_path" do
+    before do
+      @orig_env = ENV["TERMINAL_NOTIFIER_BIN"]
+    end
+
+    after do
+      ENV["TERMINAL_NOTIFIER_BIN"] = @orig_env
+    end
+
+    it "uses TERMINAL_NOTIFIER_BIN env variable if present" do
+      ENV["TERMINAL_NOTIFIER_BIN"] = "/my/custom/bin"
+      TerminalNotifier::Guard.bin_path.should.equal("/my/custom/bin")
+    end
+  end
 end

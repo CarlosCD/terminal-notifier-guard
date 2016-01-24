@@ -41,7 +41,9 @@ module TerminalNotifier
     end
 
     def self.bin_path
-      @@binary ||= `which terminal-notifier`.chomp
+      ENV["TERMINAL_NOTIFIER_BIN"] || begin
+        @@binary ||= `which terminal-notifier`.chomp
+      end
     end
 
     def self.execute(verbose, options)
