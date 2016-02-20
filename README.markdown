@@ -103,3 +103,7 @@ See [LICENSE][LICENSE] for details.
 - @alloy (For the terminal-notifier)
 - @railsme (For a clean way to test for OSX version #15)
 - @jamilbx (For support for local terminal-notifier command #8)
+- @mattbrictson (For adding support for the TERMINAL_NOTIFIER_BIN env var)
+- @goronfreeman (For the lovely icon set!)
+- @bbonamin (For fixing the license issue)
+- @croeck (For fixing the binary detection)
