@@ -35,6 +35,13 @@ Or add it to your Gemfile:
 gem 'terminal-notifier-guard', '~> 1.6.1'
 ```
 
+Then, add the notifier to your Guardfile:
+
+```ruby
+# Guardfile
+notification :terminal_notifier #, app_name: "MyApp ::", activate: 'com.googlecode.iTerm2'
+```
+
 ### OSX 10.8 users
 
 As of version `1.6.1`, we no longer bundle notifiers binaries in this gem. Please revert to
