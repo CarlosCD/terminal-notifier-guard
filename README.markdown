@@ -35,11 +35,25 @@ Or add it to your Gemfile:
 gem 'terminal-notifier-guard', '~> 1.6.1'
 ```
 
-Then, add the notifier to your Guardfile:
+## Usage
+
+Add the notifier to your Guardfile:
 
 ```ruby
 # Guardfile
-notification :terminal_notifier #, app_name: "MyApp ::", activate: 'com.googlecode.iTerm2'
+notification :terminal_notifier if `uname` =~ /Darwin/
+```
+
+**Note**: The `uname` check is necessary if you have contributors to
+your project who are not on OSX.
+
+You can pass in options if you like, e.g. for the app name (used in the
+title) and what app to activate when you click the notification
+(defaults to Terminal.app):
+
+```ruby
+# Guardfile
+notification :terminal_notifier, app_name: "MyApp ::", activate: 'com.googlecode.iTerm2' if `uname` =~ /Darwin/
 ```
 
 ### Configure Binary Path
@@ -48,7 +62,7 @@ You can override the binary path detection with an environment variable. This so
 
 In this scenario we would much rather use the version installed by Homebrew at `/usr/local/bin/terminal-notifier` which is noticeably faster.
 
-This commit allows us to set an environment variable to explicitly specify the binary to use, like this:
+This gem allows you to set an environment variable to explicitly specify the binary to use, like this:
 
 ```bash
 export TERMINAL_NOTIFIER_BIN=/usr/local/bin/terminal-notifier
@@ -58,11 +72,10 @@ _When using guard to monitor test results in TDD, speed is of the essence. Using
 
 ### OSX 10.8 users
 
-As of version `1.6.1`, we no longer bundle notifiers binaries in this gem. Please revert to
+As of version `1.6.1`, we no longer bundle notifier binaries in this gem. Please revert to
 version `1.5.3` for OSX 10.8 support.
 
-
-## Usage
+## Stand-alone Usage
 
 You could also use the notifier directly.
 
@@ -86,6 +99,13 @@ TerminalNotifier::Guard.success('This did not go bad.')
 TerminalNotifier::Guard.pending('This needs some work still')
 ```
 
+## Caveats
+
+It has been
+[reported](https://github.com/Codaisseur/terminal-notifier-guard/issues/26)
+that Terminal Notifier fails when run from Tmux without
+`reattach-to-user-namespace` installed. See this
+[comment](https://github.com/julienXX/terminal-notifier/issues/115#issuecomment-104214742) for details.
 
 ## License
 
