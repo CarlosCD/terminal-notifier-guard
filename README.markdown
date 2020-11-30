@@ -56,6 +56,14 @@ title) and what app to activate when you click the notification
 notification :terminal_notifier, app_name: "MyApp ::", activate: 'com.googlecode.iTerm2' if `uname` =~ /Darwin/
 ```
 
+To only enable sounds only in the case opf failure, use:
+
+```ruby
+# Guardfile
+notification :terminal_notifier, silent_unless_failure: true if `uname` =~ /Darwin/
+```
+
+
 ### Configure Binary Path
 
 You can override the binary path detection with an environment variable. This solves a problem where the default binary found by `which` is the Ruby gem version of `terminal-notifier`. This version is slow, especially in a Bundler environment.

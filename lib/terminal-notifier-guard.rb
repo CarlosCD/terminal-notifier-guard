@@ -51,7 +51,9 @@ module TerminalNotifier
     def self.execute(verbose, options)
       if available? && installed?
         type = options.delete(:type)
-        options.merge!({ contentImage: icon(type), sound: sound(type) })
+        silent_mode = (options.delete(:silent_unless_failure) == true) && type != :failed
+        options.merge!(contentImage: icon(type))
+        options.merge!(sound: sound(type)) unless silent_mode
 
         command = [bin_path, *options.map { |k,v| ["-#{k}", v.to_s] }.flatten]
         if RUBY_VERSION < '1.9'
@@ -119,9 +121,9 @@ module TerminalNotifier
     end
     module_function :icon
 
-    def sound(type = :notify)
-      type ||= :notify
-      OSX_BUILT_IN_SOUNDS[type.to_sym]
+    def sound(type = nil)
+      type = type.to_s.empty? ? :notify : type.to_sym
+      OSX_BUILT_IN_SOUNDS[type] if OSX_BUILT_IN_SOUNDS.keys.include?(type)
     end
     module_function :sound
 
