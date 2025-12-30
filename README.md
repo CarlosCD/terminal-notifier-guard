@@ -1,6 +1,7 @@
 # TerminalNotifier - Guard Style
 
-A simple Ruby wrapper around the [`terminal-notifier`](https://github.com/alloy/terminal-notifier) command-line
+A Ruby wrapper around the
+[`terminal-notifier`](https://github.com/alloy/terminal-notifier) command-line
 tool, which allows you to send User Notifications to the Notification Center on
 Mac OS X 10.8, or higher.
 
@@ -11,6 +12,15 @@ This version has 4 different icons and sounds included for each status that
  2. Notify (Sound is Blow)
  3. Pending (Sound is Morse)
  4. Success (Sound is Hero)
+
+
+## Fork's note
+
+This is a fork of the gem [UseK/terminal-notifier-guard](https://github.com/UseK/terminal-notifier-guard),
+with some small changes.
+
+The original gem included an icon file copyrighted by Apple in its history (I removed it here, is not
+present in this repository). The MIT License was updated to reflect this.
 
 
 ## Installation
@@ -35,6 +45,7 @@ Or add it to your Gemfile:
 gem 'terminal-notifier-guard', '~> 1.6.1'
 ```
 
+
 ## Usage
 
 Add the notifier to your Guardfile:
@@ -56,7 +67,7 @@ title) and what app to activate when you click the notification
 notification :terminal_notifier, app_name: "MyApp ::", activate: 'com.googlecode.iTerm2' if `uname` =~ /Darwin/
 ```
 
-To only enable sounds only in the case opf failure, use:
+To enable sounds only in case of failure:
 
 ```ruby
 # Guardfile
@@ -78,10 +89,12 @@ export TERMINAL_NOTIFIER_BIN=/usr/local/bin/terminal-notifier
 
 _When using guard to monitor test results in TDD, speed is of the essence. Using the right binary can save a half second or more during each test run, which doesn't seem like much but makes a big difference in productivity._
 
+
 ### OSX 10.8 users
 
 As of version `1.6.1`, we no longer bundle notifier binaries in this gem. Please revert to
 version `1.5.3` for OSX 10.8 support.
+
 
 ## Stand-alone Usage
 
@@ -115,15 +128,15 @@ that Terminal Notifier fails when run from Tmux without
 `reattach-to-user-namespace` installed. See this
 [comment](https://github.com/julienXX/terminal-notifier/issues/115#issuecomment-104214742) for details.
 
+
 ## License
 
 All the works are available under the MIT license.
 
 See [LICENSE][LICENSE] for details.
 
-[HOMEPAGE]: https://github.com/Springest/terminal-notifier-guard
 [GUARD]: https://github.com/guard/guard
-[LICENSE]: https://github.com/Springest/terminal-notifier-guard/blob/master/LICENSE
+[LICENSE]: LICENSE
 
 
 ## Contributors & Thanks to
