@@ -2,7 +2,7 @@ module TerminalNotifier
   module Guard
     VERSION = '1.7.1'
     ICONS_PATH = File.expand_path("../../icons", __FILE__)
-    # GUARD_ICON = File.join(ICONS_PATH, 'Guard.icns')
+    # GUARD_ICON = File.join(ICONS_PATH, 'Guard.png')
     OSX_BUILT_IN_SOUNDS = { :notify => 'Blow', :failed => 'Sosumi', :pending => 'Morse', :success => 'Hero' }.freeze
 
     def self.osx_version
@@ -116,7 +116,7 @@ module TerminalNotifier
 
     def icon(type = :notify)
       type ||= :notify
-      file_name = "#{type}.icns".capitalize
+      file_name = "#{type}.png".capitalize
       File.join(ICONS_PATH, file_name)
     end
     module_function :icon
